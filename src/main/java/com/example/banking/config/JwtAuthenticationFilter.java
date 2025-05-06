@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.security.Key;
 
 @Component
 @RequiredArgsConstructor
@@ -36,12 +37,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = header.substring(7);
         try {
-            Jwts.parserBuilder()
+            String username = Jwts.parserBuilder()
                     .setSigningKey(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
                     .build()
-                    .parseClaimsJws(token);
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
 
-            UserDetails userDetails = User.withUsername("user")
+            UserDetails userDetails = User.withUsername(username)
                     .password("")
                     .authorities("USER")
                     .build();

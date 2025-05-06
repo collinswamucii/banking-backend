@@ -1,1 +1,2 @@
 INSERT INTO customer (first_name, last_name, email) VALUES ('John', 'Doe', 'john.doe@example.com');
+INSERT INTO user (username, password) VALUES ('admin', '$2a$10$6HodRAO4Wqz31n2GTCwW0utx4X6PJa1bVfCoQ11bNEUuUDSAemA66');
