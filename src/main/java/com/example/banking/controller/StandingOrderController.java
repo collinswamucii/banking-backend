@@ -6,10 +6,7 @@ import com.example.banking.service.StandingOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/standing-orders")
@@ -22,5 +19,11 @@ public class StandingOrderController {
     public ResponseEntity<StandingOrder> createStandingOrder(@RequestBody StandingOrderDTO standingOrderDTO) {
         StandingOrder standingOrder = standingOrderService.createStandingOrder(standingOrderDTO);
         return new ResponseEntity<>(standingOrder, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStandingOrder(@PathVariable Long id) {
+        standingOrderService.deleteStandingOrder(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

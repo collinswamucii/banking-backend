@@ -32,4 +32,10 @@ public class StandingOrderService {
                 .build();
         return standingOrderRepository.save(standingOrder);
     }
+
+    public void deleteStandingOrder(Long id) {
+        StandingOrder standingOrder = standingOrderRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Standing order not found"));
+        standingOrderRepository.delete(standingOrder);
+    }
 }
